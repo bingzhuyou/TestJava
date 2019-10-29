@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+	<appender name="infoAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${instance.workspace}/logs/info.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${instance.workspace}/logs/info.log.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>20</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>40MB</maxFileSize>
+		</triggeringPolicy>
+		<Append>false</Append>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level %logger{10} [%file:%line]
+				%msg%n</Pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="async_infoAppender"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>100000</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="infoAppender" />
+	</appender>
+	<appender name="errorAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${instance.workspace}/logs/error.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${instance.workspace}/logs/error.log.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>20</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>40MB</maxFileSize>
+		</triggeringPolicy>
+		<Append>false</Append>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level %logger{10} [%file:%line]
+				%msg%n</Pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="async_errorAppender"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>100000</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="errorAppender" />
+	</appender>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}, %C{1},%L, %M : %m%n</pattern>
+		</layout>
+	</appender>
+
+	<root level="INFO">
+		<!-- <appender-ref ref="STDOUT" /> -->
+		<appender-ref ref="async_infoAppender" />
+		<appender-ref ref="async_errorAppender" />
+	</root>
+
+
+</configuration>
