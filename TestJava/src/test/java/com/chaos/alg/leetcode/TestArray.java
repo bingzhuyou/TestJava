@@ -1,10 +1,45 @@
 package com.chaos.alg.leetcode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.chaos.leetcode.TagArray;
 
 public class TestArray {
+	// 17
+	public static List<String> letterCombinations(String digits) {
+		Map<Integer, List<Character>> cML = new HashMap<Integer, List<Character>>();
+		List<Character> l2 = null;
+		char c;
+		for (c = 'a'; c <= 'z'; c++) {
+			if (c % 3 == 1) {
+				l2 = new ArrayList<Character>();
+			}
+			l2.add(c);
+			if (c % 3 == 0) {
+				cML.put(c - 95, l2);
+				l2 = null;
+			}
+		}
+
+		if (l2 != null) {
+			cML.put(c - 96, l2);
+		}
+
+		List<String> ret = new ArrayList<String>();
+		List<StringBuilder> retB = new ArrayList<StringBuilder>();
+
+		for (int i = 0; i < digits.length(); i++) {
+
+		}
+
+		return ret;
+	}
+
 	public static void printArray(int nums[]) {
 		for (int i = 0; i < nums.length; i++) {
 			System.out.print(nums[i] + " ");
