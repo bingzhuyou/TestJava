@@ -6,6 +6,27 @@ import com.chaos.leetcode.TagString;
 
 public class TestString {
 	@Test
+	public void testdecodeString() {
+		System.out.println(TagString.decodeString("a2[c]"));
+		System.out.println(TagString.decodeString("a2[c]ee"));
+		System.out.println(TagString.decodeString("3[a]2[bc]"));
+		System.out.println(TagString.decodeString("3[a2[c]]"));
+		System.out.println(TagString.decodeString("3[a2[c5[d]]]"));
+		System.out.println(TagString.decodeString("2[abc]3[cd]ef"));
+		System.out.println(TagString.decodeString("aa2[abc]3[cd]ef"));
+		System.out.println(TagString.decodeString("aaaaaaaaa"));
+	}
+
+	@Test
+	public void testremoveDuplicates() {
+		System.out.println(TagString.removeDuplicates(""));
+		System.out.println(TagString.removeDuplicates("b"));
+		System.out.println(TagString.removeDuplicates("abbaca"));
+		System.out.println(TagString.removeDuplicates("aaaaaaaa"));
+		System.out.println(TagString.removeDuplicates("aaaaaaaaa"));
+	}
+
+	@Test
 	public void testcanConstruct() {
 		System.out.println(TagString.canConstruct("a", "b"));
 		System.out.println(TagString.canConstruct("bg", "bkadsjfkabgljkjljflaksdjfklggldkjabbb"));

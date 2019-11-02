@@ -1,10 +1,93 @@
 package com.chaos.leetcode;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 public class TagNumber {
+
+	// 179
+	public static String largestNumber(int[] nums) {
+		StringBuilder sb = new StringBuilder();
+
+		List<String> ls = new ArrayList<String>();
+
+		for (int i = 0; i < nums.length; i++) {
+			ls.add("" + nums[i]);
+		}
+		Collections.sort(ls, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				String sL, sS;
+				int iL, iS;
+				int mV = 1;
+				if (o1.length() >= o2.length()) {
+					sL = o1;
+					sS = o2;
+				} else {
+					mV = -1;
+					sL = o2;
+					sS = o1;
+				}
+				iL = sL.length();
+				iS = sS.length();
+
+				int t = 0;
+				int rst = 0;
+				int i = 0;
+				while (iL >= iS * t) {
+					for (i = 0; iS * t + i < iL && i < iS; i++) {
+						if (sL.charAt(iS * t + i) > sS.charAt(i)) {
+							rst = -1;
+							return rst * mV;
+						} else if (sL.charAt(iS * t + i) < sS.charAt(i)) {
+							rst = 1;
+							return rst * mV;
+						}
+					}
+					t++;
+				}
+
+				int lB = iL % iS;
+				int lb = iL / iS;
+
+				for (int j = 0; j < lB && i < iS; j++) {
+					if (sL.charAt(iS * lb + j) > sS.charAt(i)) {
+						rst = -1;
+						return rst * mV;
+					} else if (sL.charAt(iS * lb + j) < sS.charAt(i)) {
+						rst = 1;
+						return rst * mV;
+					}
+					i++;
+				}
+
+				return rst * mV;
+			}
+
+		});
+
+		for (int i = 0; i < ls.size(); i++) {
+			sb.append(ls.get(i));
+		}
+
+		String result = sb.toString();
+
+		int i = 0;
+		for (; i < result.length() - 1; i++) {
+			if (result.charAt(i) != '0') {
+				break;
+			}
+		}
+
+		result = result.substring(i);
+
+		return result;
+	}
 
 	// 415
 	public static String addStrings(String num1, String num2) {

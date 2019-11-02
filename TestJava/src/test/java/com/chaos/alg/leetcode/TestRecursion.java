@@ -11,14 +11,22 @@ public class TestRecursion {
 	public void testminCostClimbingStairs() {
 		int[] cost = { 10, 15, 20 };
 		System.out.println(TagRecursion.minCostClimbingStairs(cost));
+		TagRecursion.store.clear();
 		int[] cost1 = { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 };
 		System.out.println(TagRecursion.minCostClimbingStairs(cost1));
+		TagRecursion.store.clear();
 		int[] cost2 = { 0, 1, 2, 2 };
 		System.out.println(TagRecursion.minCostClimbingStairs(cost2));
+		TagRecursion.store.clear();
 		int[] cost3 = { 1, 0, 0, 1 };
 		System.out.println(TagRecursion.minCostClimbingStairs(cost3));
+		TagRecursion.store.clear();
 		int[] cost4 = { 1, 0, 0, 2 };
 		System.out.println(TagRecursion.minCostClimbingStairs(cost4));
+		TagRecursion.store.clear();
+		int[] cost5 = { 0, 0, 1, 1 };
+		System.out.println(TagRecursion.minCostClimbingStairs(cost5));
+		TagRecursion.store.clear();
 	}
 
 	@Test

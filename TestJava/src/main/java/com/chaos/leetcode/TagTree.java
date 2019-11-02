@@ -1,12 +1,120 @@
 package com.chaos.leetcode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class TagTree {
+	// 1110
+	public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+		List<TreeNode> ltn = new ArrayList<TreeNode>();
+		Stack<TreeNode> stn = new Stack<TreeNode>();
+
+		Set<Integer> si = new HashSet<Integer>();
+
+		for (int i = 0; i < to_delete.length; i++) {
+			si.add(to_delete[i]);
+		}
+
+		TreeNode cur = root;
+		while (cur != null || stn.size() > 0) {
+			if (si.contains(cur.val)) {
+				si.remove(root.val);
+			}
+		}
+
+		return ltn;
+	}
+
+	public static void delNodesSet(TreeNode root, Set<Integer> si, List<TreeNode> ltn) {
+		if (root == null || si.size() <= 0) {
+			return;
+		}
+		if (si.contains(root.val)) {
+			ltn.add(root);
+			si.remove(root.val);
+		}
+		delNodesSet(root.left, si, ltn);
+		if (root.left != null) {
+			if (si.contains(root.left.val)) {
+				root.left = null;
+			}
+		}
+		delNodesSet(root.right, si, ltn);
+		if (root.right != null) {
+			if (si.contains(root.right.val)) {
+				root.right = null;
+			}
+		}
+	}
+
+	// 872
+	public static boolean leafSimilar(TreeNode root1, TreeNode root2) {
+		Stack<Integer> si = new Stack<Integer>();
+		Stack<TreeNode> stn = new Stack<TreeNode>();
+
+		TreeNode cur = root1;
+		while (cur != null || stn.size() > 0) {
+			if (cur == null) {
+				cur = stn.pop();
+			}
+			if (cur.right != null) {
+				if (cur.left != null) {
+					stn.push(cur.right);
+					cur = cur.left;
+				} else {
+					cur = cur.right;
+				}
+			} else {
+				if (cur.left != null) {
+					cur = cur.left;
+				} else {
+					si.push(cur.val);
+					cur = null;
+				}
+			}
+		}
+
+		cur = root2;
+		while (cur != null || stn.size() > 0) {
+			if (cur == null) {
+				cur = stn.pop();
+			}
+			if (cur.left != null) {
+				if (cur.right != null) {
+					stn.push(cur.left);
+					cur = cur.right;
+				} else {
+					cur = cur.left;
+				}
+			} else {
+				if (cur.right != null) {
+					cur = cur.right;
+				} else {
+					if (si.size() <= 0) {
+						return false;
+					}
+					if (cur.val != si.peek()) {
+						return false;
+					} else {
+						si.pop();
+					}
+					cur = null;
+				}
+			}
+		}
+
+		if (si.size() > 0) {
+			return false;
+		}
+
+		return true;
+	}
+
 	// 429
 	public static List<List<Integer>> levelOrder(Node root) {
 		List<List<Integer>> ret = new ArrayList<List<Integer>>();

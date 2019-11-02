@@ -8,6 +8,112 @@ import java.util.Map;
 import java.util.Stack;
 
 public class TagString {
+	// 394
+	public static String decodeString(String s) {
+		StringBuilder sb = new StringBuilder();
+		StringBuilder innerSb = new StringBuilder();
+		StringBuilder snb = new StringBuilder();
+
+		int innerLB = 0;
+
+		int num = 0;
+		boolean isInner = false;
+
+		for (int i = 0; i < s.length(); i++) {
+
+			if (s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+				if (isInner) {
+					innerSb.append(s.charAt(i));
+				} else {
+					snb.append(s.charAt(i));
+				}
+			} else if (s.charAt(i) == '[') {
+				if (isInner) {
+					innerSb.append(s.charAt(i));
+					innerLB++;
+				} else {
+					isInner = true;
+					if (snb.length() > 0) {
+						try {
+							num = Integer.parseInt(snb.toString());
+							snb.delete(0, snb.length());
+						} catch (Exception e) {
+							return "";
+						}
+					} else {
+						return "";
+					}
+				}
+			} else if (s.charAt(i) == ']') {
+				if (isInner) {
+					if (innerLB > 0) {
+						innerLB--;
+						innerSb.append(s.charAt(i));
+					} else {
+						String innStr = decodeString(innerSb.toString());
+						innerSb.delete(0, innerSb.length());
+						for (int j = 0; j < num; j++) {
+							sb.append(innStr);
+						}
+						num = 0;
+						isInner = false;
+					}
+				} else {
+					return "";
+				}
+			} else {
+				if (isInner) {
+					innerSb.append(s.charAt(i));
+				} else {
+					sb.append(s.charAt(i));
+				}
+			}
+		}
+
+		return sb.toString();
+	}
+
+	// 1047
+	public static String removeDuplicates(String S) {
+		StringBuilder sb = new StringBuilder();
+		Stack<Character> sc = new Stack<Character>();
+		// boolean isDup = false;
+		int i = 0;
+		while (i < S.length()) {
+			if (sc.isEmpty()) {
+				sc.push(S.charAt(i));
+				// isDup = false;
+				i++;
+			} else {
+				// if (isDup) {
+				// if (!sc.peek().equals(S.charAt(i))) {
+				// isDup = false;
+				// sc.pop();
+				// } else {
+				// i++;
+				// }
+				// } else {
+				if (sc.peek().equals(S.charAt(i))) {
+					sc.pop();
+					i++;
+				} else {
+					sc.push(S.charAt(i));
+					i++;
+				}
+				// }
+			}
+		}
+		// if (isDup) {
+		// sc.pop();
+		// }
+
+		while (sc.size() > 0) {
+			sb.insert(0, sc.pop());
+		}
+
+		return sb.toString();
+	}
+
 	// 434
 	public static int countSegments(String s) {
 		int num = 0;

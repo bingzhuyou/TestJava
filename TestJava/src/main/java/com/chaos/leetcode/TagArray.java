@@ -11,6 +11,92 @@ import java.util.Map;
 import java.util.Set;
 
 public class TagArray {
+
+	// 48 rotate an image
+	// 0,0 0,2 0, subLen - 1
+	// 0,1 1,2 1, subLen - 1
+	// 0,2 2,2 2, subLen - 1
+	// 1,0 0,1 0, subLen - 1 - 1
+	// 1,1 1,1 1, subLen - 1 - 1
+	// 1,2 2,1 2, subLen - 1 - 1
+	// 2,0 0,0 0, subLen - 1 - 2
+	// 2,1 1,0 1, subLen - 1 - 2
+	// 2,2 2,0 2, subLen - 1 - 2
+	public static void rotate(int[][] matrix) {
+		int subLen = matrix[0].length;
+
+		for (int i = 0; i < subLen; i++) {
+			int temp, tind;
+			int oi, oj, ti, tj;
+			for (int j = i; j < subLen - i; j++) {
+				oi = i;
+				oj = j;
+				ti = oj;
+				tj = subLen - 1 - oi;
+				temp = matrix[tj][subLen - 1 - ti];
+				while (tj != oi && subLen - 1 - ti != oj) {
+					temp = matrix[tj][subLen - 1 - ti];
+					matrix[tj][subLen - 1 - ti] = matrix[ti][tj];
+					tind = tj;
+					tj = subLen - 1 - ti;
+					ti = tind;
+				}
+				matrix[ti][tj] = temp;
+			}
+		}
+	}
+
+	//
+	public static boolean isValidSudoku(char[][] board) {
+		int[][] cv = new int[9][9];
+		int[][] lv = new int[9][9];
+		int[][] sv = new int[9][9];
+
+		int[][] sind = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
+
+		int sc, si;
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (board[i][j] == '.') {
+					continue;
+				}
+				int k = board[i][j] - 49;
+				if (lv[i][k] == 1) {
+					return false;
+				} else {
+					lv[i][k] = 1;
+				}
+				if (cv[j][k] == 1) {
+					return false;
+				} else {
+					cv[j][k] = 1;
+				}
+				if (i < 3) {
+					sc = 0;
+				} else if (i < 6) {
+					sc = 1;
+				} else {
+					sc = 2;
+				}
+				if (j < 3) {
+					si = sind[sc][0];
+				} else if (j < 6) {
+					si = sind[sc][1];
+				} else {
+					si = sind[sc][2];
+				}
+
+				if (sv[si][k] == 1) {
+					return false;
+				} else {
+					sv[si][k] = 1;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	// 17
 	public static List<String> letterCombinations(String digits) {
 		Map<Integer, List<Character>> cML = new HashMap<Integer, List<Character>>();

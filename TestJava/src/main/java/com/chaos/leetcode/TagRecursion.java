@@ -5,9 +5,80 @@ import java.util.Map;
 import java.util.Stack;
 
 public class TagRecursion {
+	public static Map<Integer, Integer> store = new HashMap<Integer, Integer>();
 
-	// 746
+	// 746 divide and conquer
 	public static int minCostClimbingStairs(int[] cost) {
+		int total = 0;
+		int f0, f1;
+		f0 = 0;
+		f1 = 0;
+
+		for (int i = cost.length - 1; i >= 0; i--) {
+			total = cost[i] + Math.min(f0, f1);
+			f1 = f0;
+			f0 = total;
+		}
+
+		return Math.min(f0, f1);
+	}
+
+	public static int minCostClimbingStairsNotGood(int[] cost) {
+		int total = minCostClimbingStairs(cost, 0, cost.length - 1);
+		store.clear();
+		return total;
+	}
+
+	public static int minCostClimbingStairs(int[] cost, int beg, int end) {
+		if (beg > end) {
+			return 0;
+		} else if (beg == end) {
+			return 0;
+		} else if (beg + 1 == end) {
+			if (cost[beg] >= cost[end]) {
+				store.put(beg, cost[end]);
+				return cost[end];
+			} else {
+				store.put(beg, cost[beg]);
+				return cost[beg];
+			}
+		}
+
+		if (store.containsKey(beg)) {
+			return store.get(beg);
+		}
+
+		int s1, s2;
+		if (store.containsKey(beg + 1)) {
+			s1 = store.get(beg + 1);
+		} else {
+			s1 = minCostClimbingStairs(cost, beg + 1, end);
+			store.put(beg + 1, s1);
+		}
+		if (store.containsKey(beg + 2)) {
+			s2 = store.get(beg + 2);
+		} else {
+			s2 = minCostClimbingStairs(cost, beg + 2, end);
+			store.put(beg + 2, s2);
+		}
+
+		s1 += cost[beg];
+		if (beg + 1 > end) {
+			s2 += 0;
+		} else {
+			s2 += cost[beg + 1];
+		}
+
+		if (s1 >= s2) {
+			store.put(beg, s2);
+			return s2;
+		} else {
+			store.put(beg, s1);
+			return s1;
+		}
+	}
+
+	public static int minCostClimbingStairsBad(int[] cost) {
 		int costTotal = 0;
 		int i = -1;
 		while (i < cost.length) {
@@ -73,7 +144,6 @@ public class TagRecursion {
 	}
 
 	// 70
-	public static Map<Integer, Integer> store = new HashMap<Integer, Integer>();
 
 	// divid and compuse
 	public static int climbStairs(int n) {

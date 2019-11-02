@@ -7,6 +7,32 @@ import com.chaos.leetcode.TagNumber;
 public class TestNumber {
 
 	@Test
+	public void testlargestNumber() {
+		int[] digits = { 10, 2 };
+		System.out.println(TagNumber.largestNumber(digits));
+		int[] digits2 = { 3, 30 };
+		System.out.println(TagNumber.largestNumber(digits2));
+		int[] digits3 = { 34, 3, 30 };
+		System.out.println(TagNumber.largestNumber(digits3));
+		int[] digits4 = { 333, 3, 334, 330 };
+		System.out.println(TagNumber.largestNumber(digits4));
+		int[] digits5 = { 20, 1 };
+		System.out.println(TagNumber.largestNumber(digits5));
+		int[] digits6 = { 1, 20 };
+		System.out.println(TagNumber.largestNumber(digits6));
+		int[] digits7 = { 121, 12 };
+		System.out.println(TagNumber.largestNumber(digits7));
+		int[] digits8 = { 12, 121 };
+		System.out.println(TagNumber.largestNumber(digits8));
+		int[] digits9 = { 0, 0 };
+		System.out.println(TagNumber.largestNumber(digits9));
+		int[] digits10 = { 0, 0, 0 };
+		System.out.println(TagNumber.largestNumber(digits10));
+		int[] digits11 = { 0, 0, 0, 0 };
+		System.out.println(TagNumber.largestNumber(digits11));
+	}
+
+	@Test
 	public void testCountAndSay() {
 		System.out.println(TagNumber.countAndSay(1));
 		System.out.println(TagNumber.countAndSay(2));
