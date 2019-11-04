@@ -8,6 +8,20 @@ import com.chaos.leetcode.TagNumber;
 
 public class TestNumber {
 
+	@Test
+	public void testintToRoman() {
+		System.out.println(TagNumber.intToRoman(-1));
+		System.out.println(TagNumber.intToRoman(0));
+		System.out.println(TagNumber.intToRoman(1));
+		System.out.println(TagNumber.intToRoman(3));
+		System.out.println(TagNumber.intToRoman(4));
+		System.out.println(TagNumber.intToRoman(8));
+		System.out.println(TagNumber.intToRoman(19));
+		System.out.println(TagNumber.intToRoman(17));
+		System.out.println(TagNumber.intToRoman(58));
+		System.out.println(TagNumber.intToRoman(1994));
+	}
+
 	public boolean testValue() {
 		return true;
 	}
