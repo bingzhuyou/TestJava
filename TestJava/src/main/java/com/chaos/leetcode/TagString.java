@@ -3,11 +3,38 @@ package com.chaos.leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 public class TagString {
+	public static int firstUniqChar(String s) {
+		Map<Character, Integer> mi = new LinkedHashMap<Character, Integer>();
+		Map<Character, Integer> cl = new HashMap<Character, Integer>();
+
+		for (int i = 0; i < s.length(); i++) {
+			Character c = s.charAt(i);
+			if (mi.containsKey(c)) {
+				mi.put(c, mi.get(c) + 1);
+			} else {
+				mi.put(c, 1);
+			}
+
+			if (!cl.containsKey(c)) {
+				cl.put(c, i);
+			}
+		}
+
+		for (Map.Entry<Character, Integer> en : mi.entrySet()) {
+			if (en.getValue() == 1) {
+				return cl.get(en.getKey());
+			}
+		}
+
+		return -1;
+	}
+
 	// 394
 	public static String decodeString(String s) {
 		StringBuilder sb = new StringBuilder();

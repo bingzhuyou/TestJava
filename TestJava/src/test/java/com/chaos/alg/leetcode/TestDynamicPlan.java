@@ -3,7 +3,7 @@ package com.chaos.alg.leetcode;
 import org.junit.Test;
 
 import com.chaos.leetcode.TagArray;
-import com.chaos.leetcode.TagDynamicPlan;
+import com.chaos.leetcode.TagDynamicProgramming;
 
 public class TestDynamicPlan {
 	public static void printArray(int nums[]) {
@@ -30,26 +30,26 @@ public class TestDynamicPlan {
 	@Test
 	public void testrob() {
 		int[] nums = { 1, 2, 3, 1 };
-		System.out.println(TagDynamicPlan.rob(nums));
+		System.out.println(TagDynamicProgramming.rob(nums));
 		int[] nums1 = { 2, 7, 9, 3, 1 };
-		System.out.println(TagDynamicPlan.rob(nums1));
+		System.out.println(TagDynamicProgramming.rob(nums1));
 		int[] nums2 = { 1, 7, 1, 1, 9, 1, 1 };
-		System.out.println(TagDynamicPlan.rob(nums2));
+		System.out.println(TagDynamicProgramming.rob(nums2));
 		int[] nums3 = { 1, 7, 1, 1, 9, 1, 1, 8, 1 };
-		System.out.println(TagDynamicPlan.rob(nums3));
+		System.out.println(TagDynamicProgramming.rob(nums3));
 	}
 
 	@Test
 	public void testcoinChange() {
 		int[] nums = { 1, 2, 5 };
-		System.out.println(TagDynamicPlan.coinChange(nums, 11));
+		System.out.println(TagDynamicProgramming.coinChange(nums, 11));
 		int[] nums1 = { 2 };
-		System.out.println(TagDynamicPlan.coinChange(nums1, 3));
+		System.out.println(TagDynamicProgramming.coinChange(nums1, 3));
 		int[] nums2 = { 1, 7, 9 };
-		System.out.println(TagDynamicPlan.coinChange(nums2, 20));
+		System.out.println(TagDynamicProgramming.coinChange(nums2, 20));
 		int[] nums3 = { 1, 7, 9, 8 };
-		System.out.println(TagDynamicPlan.coinChange(nums3, 100));
+		System.out.println(TagDynamicProgramming.coinChange(nums3, 100));
 		int[] nums4 = { 186, 419, 83, 408 };
-		System.out.println(TagDynamicPlan.coinChange(nums4, 6249));
+		System.out.println(TagDynamicProgramming.coinChange(nums4, 6249));
 	}
 }

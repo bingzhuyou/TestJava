@@ -5,6 +5,19 @@ import org.junit.Test;
 import com.chaos.leetcode.TagString;
 
 public class TestString {
+
+	@Test
+	public void testfirstUniqChar() {
+		System.out.println(TagString.firstUniqChar("leetcode"));
+		System.out.println(TagString.firstUniqChar("loveleetcode"));
+		// System.out.println(TagString.firstUniqChar("3[a]2[bc]"));
+		// System.out.println(TagString.firstUniqChar("3[a2[c]]"));
+		// System.out.println(TagString.firstUniqChar("3[a2[c5[d]]]"));
+		// System.out.println(TagString.firstUniqChar("2[abc]3[cd]ef"));
+		// System.out.println(TagString.firstUniqChar("aa2[abc]3[cd]ef"));
+		// System.out.println(TagString.firstUniqChar("aaaaaaaaa"));
+	}
+
 	@Test
 	public void testdecodeString() {
 		System.out.println(TagString.decodeString("a2[c]"));

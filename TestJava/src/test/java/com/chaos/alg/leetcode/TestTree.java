@@ -6,6 +6,38 @@ import com.chaos.leetcode.TagTree;
 import com.chaos.leetcode.TreeNode;
 
 public class TestTree {
+
+	@Test
+	public void testisValidBST() {
+		TreeNode root = new TreeNode(2);
+		System.out.println(TagTree.isSymmetric(root));
+		TreeNode left = new TreeNode(1);
+		TreeNode right = new TreeNode(3);
+		root.left = left;
+		root.right = right;
+		System.out.println(TagTree.isValidBST(root));
+		TreeNode lr = new TreeNode(3);
+		TreeNode rr = new TreeNode(3);
+		left.right = lr;
+		right.right = rr;
+		System.out.println(TagTree.isValidBST(root));
+		TreeNode ll = new TreeNode(3);
+		TreeNode rl = new TreeNode(4);
+		lr.val = 4;
+		left.left = ll;
+		right.left = rl;
+		System.out.println(TagTree.isValidBST(root));
+		TreeNode lrl = new TreeNode(8);
+		TreeNode lrr = new TreeNode(9);
+		TreeNode rll = new TreeNode(9);
+		TreeNode rlr = new TreeNode(8);
+		lr.left = lrl;
+		lr.right = lrr;
+		rl.left = rll;
+		rlr.right = rlr;
+		System.out.println(TagTree.isValidBST(root));
+	}
+
 	@Test
 	public void testIsSymmetric() {
 		TreeNode root = new TreeNode(1);

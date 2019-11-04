@@ -1,10 +1,95 @@
 package com.chaos.alg.leetcode;
 
+import java.lang.reflect.Method;
+
 import org.junit.Test;
 
 import com.chaos.leetcode.TagNumber;
 
 public class TestNumber {
+
+	public boolean testValue() {
+		return true;
+	}
+
+	public Boolean testValue1() {
+		return true;
+	}
+
+	public int testValue2() {
+		return 1;
+	}
+
+	public int testValue3() {
+		return 0;
+	}
+
+	@Test
+	public void testPrimitiveType() {
+
+		Method[] methods = TestNumber.class.getMethods();
+
+		for (Method m : methods) {
+			if (m.getName().startsWith("testValue")) {
+				Class<?> returnType = m.getReturnType();
+
+				if (returnType.isPrimitive()) {
+					System.out.println(m.getName() + " is primitive");
+					if (boolean.class.isAssignableFrom(returnType)) {
+						System.out.println(m.getName() + " is boolean");
+					} else {
+						System.out.println(m.getName() + " is not boolean");
+					}
+				} else {
+					System.out.println(m.getName() + " is not primitive");
+					if (Boolean.class.isAssignableFrom(returnType)) {
+						System.out.println(m.getName() + " is Boolean");
+					} else {
+						System.out.println(m.getName() + " is not Boolean");
+					}
+				}
+			}
+		}
+		Boolean object = false;
+		Boolean b1 = true;
+		// boolean result = boolean.class;
+		boolean result1 = b1 instanceof Boolean;
+
+		boolean[] bArr = { true, false };
+
+		if (bArr.getClass().isArray()) {
+
+			Class<?> componentType;
+			componentType = bArr.getClass().getComponentType();
+
+			if (componentType.isPrimitive()) {
+				System.out.println("is isPrimitive");
+				if (boolean.class.isAssignableFrom(componentType)) {
+					System.out.println("is boolean");
+				} else {
+					System.out.println("not boolean");
+				}
+			} else {
+
+				System.out.println("not isPrimitive");
+			}
+		}
+
+		// }
+	}
+
+	@Test
+	public void testReserveBit() {
+		// String input = "11111111111111111111111111111101";
+		// long k = 4294967293L;
+		// long j = 3221225471L;
+		//
+		// k -= Integer.MAX_VALUE;
+		// System.out.println(k);
+
+		// System.out.println(Integer.parseInt(input, 2));
+		// System.out.println(Integer.parseInt(input, 2));
+	}
 
 	@Test
 	public void testlargestNumber() {

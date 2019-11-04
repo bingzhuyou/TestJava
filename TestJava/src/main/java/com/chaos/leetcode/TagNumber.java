@@ -10,6 +10,71 @@ import java.util.Stack;
 
 public class TagNumber {
 
+	public static int countPrimes(int n) {
+		int cnt = 0;
+		if (n <= 1) {
+			return cnt;
+		}
+		for (int i = 2; i < n; i++) {
+			if (isPrime(i)) {
+				cnt++;
+			}
+		}
+
+		return cnt;
+	}
+
+	public static boolean isPrime(int n) {
+		if (n <= 1) {
+			return false;
+		}
+
+		if (n == 2 || n == 3) {
+			return true;
+		}
+
+		if (n % 6 != 1 && n % 6 != 5) {
+			return false;
+		}
+
+		int sqrtm = (int) Math.sqrt(n * 1.0);
+		for (int i = 5; i <= sqrtm; i += 6) {
+			if (n % i == 0 || n % (i + 2) == 0) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static List<String> fizzBuzz(int n) {
+		List<String> ret = new ArrayList<String>();
+		if (n <= 0) {
+			return ret;
+		}
+		for (int i = 1; i <= n; i++) {
+			boolean b3 = false;
+			boolean b5 = false;
+			if (i % 3 == 0) {
+				b3 = true;
+			}
+			if (i % 5 == 0) {
+				b5 = true;
+			}
+
+			if (b3 && b5) {
+				ret.add("FizzBuzz");
+			} else if (b3) {
+				ret.add("Fizz");
+			} else if (b5) {
+				ret.add("Buzz");
+			} else {
+				ret.add("" + i);
+			}
+		}
+		return ret;
+	}
+
 	// 179
 	public static String largestNumber(int[] nums) {
 		StringBuilder sb = new StringBuilder();
@@ -173,8 +238,63 @@ public class TagNumber {
 		}
 	}
 
+	public static int hammingWeight(int n) {
+		String bStr = Integer.toBinaryString(n);
+
+		int ret = 0;
+		for (int i = 0; i < bStr.length(); i++) {
+			if (bStr.charAt(i) == '1') {
+				ret++;
+			}
+		}
+		return ret;
+	}
+
+	public int hammingDistance(int x, int y) {
+		StringBuilder bxStr = new StringBuilder();
+		bxStr.append(Integer.toBinaryString(x));
+		StringBuilder byStr = new StringBuilder();
+		byStr.append(Integer.toBinaryString(y));
+
+		int needAddx = 32 - bxStr.length();
+		int needAddy = 32 - byStr.length();
+
+		for (int i = 0; i < needAddx; i++) {
+			bxStr.insert(0, '0');
+		}
+		for (int i = 0; i < needAddy; i++) {
+			byStr.insert(0, '0');
+		}
+
+		int ret = 0;
+		for (int i = 0; i < 32; i++) {
+			if (bxStr.charAt(i) != byStr.charAt(i)) {
+				ret++;
+			}
+		}
+		return ret;
+	}
+
+	public int reverseBitsFast(int n) {
+		int res = 0;
+		for (int i = 0; i < 32; i++) {
+			res <<= 1;
+			res += n & 1;
+			n >>= 1;
+		}
+		return res;
+	}
+
 	public int reverseBits(int n) {
-		char[] chrArr = Integer.toBinaryString(n).toCharArray();
+		StringBuilder bStr = new StringBuilder();
+		bStr.append(Integer.toBinaryString(n));
+
+		int needAdd = 32 - bStr.length();
+
+		for (int i = 0; i < needAdd; i++) {
+			bStr.insert(0, '0');
+		}
+		char[] chrArr = bStr.toString().toCharArray();
 		int left = 0;
 		int right = chrArr.length - 1;
 
@@ -186,14 +306,16 @@ public class TagNumber {
 			right--;
 		}
 
-		int ret = -1;
+		// for unsigned integer
+		long ret = -1;
 		try {
-			ret = Integer.parseInt(new String(chrArr), 2);
+			ret = Long.parseLong(new String(chrArr), 2);
 		} catch (Exception e) {
-
+			// ret = Integer.MAX_VALUE;
 		}
 
-		return ret;
+		// for unsigned integer
+		return (int) ret & 0xffffffff;
 	}
 
 	public static String countAndSay(int n) {

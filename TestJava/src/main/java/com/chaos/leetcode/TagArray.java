@@ -26,22 +26,26 @@ public class TagArray {
 		int subLen = matrix[0].length;
 
 		for (int i = 0; i < subLen; i++) {
-			int temp, tind;
+			int walker, temp, tind;
 			int oi, oj, ti, tj;
-			for (int j = i; j < subLen - i; j++) {
+			for (int j = i; j < subLen - i - 1; j++) {
 				oi = i;
 				oj = j;
-				ti = oj;
-				tj = subLen - 1 - oi;
-				temp = matrix[tj][subLen - 1 - ti];
-				while (tj != oi && subLen - 1 - ti != oj) {
-					temp = matrix[tj][subLen - 1 - ti];
-					matrix[tj][subLen - 1 - ti] = matrix[ti][tj];
+				ti = oi;
+				tj = oj;
+				walker = matrix[oi][oj];
+				while (true) {
 					tind = tj;
 					tj = subLen - 1 - ti;
 					ti = tind;
+					if (ti == oi && tj == oj) {
+						matrix[ti][tj] = walker;
+						break;
+					}
+					temp = matrix[ti][tj];
+					matrix[ti][tj] = walker;
+					walker = temp;
 				}
-				matrix[ti][tj] = temp;
 			}
 		}
 	}

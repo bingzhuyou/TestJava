@@ -1,11 +1,140 @@
 package com.chaos.leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class TagLinkedList {
+	// 82
+	public static ListNode deleteDuplicatesII(ListNode head) {
+		Map<Integer, Integer> dupChkMap = new HashMap<Integer, Integer>();
+
+		ListNode cur = head;
+		while (cur != null) {
+			if (dupChkMap.containsKey(cur.val)) {
+				dupChkMap.put(cur.val, dupChkMap.get(cur.val) + 1);
+			} else {
+				dupChkMap.put(cur.val, 1);
+			}
+			cur = cur.next;
+		}
+
+		cur = head;
+		ListNode per = null;
+		while (cur != null) {
+			if (dupChkMap.get(cur.val) > 1) {
+				if (per != null) {
+					per.next = cur.next;
+				}
+				if (head == cur) {
+					head = cur.next;
+				}
+			} else {
+				per = cur;
+			}
+			cur = cur.next;
+		}
+
+		return head;
+	}
+
+	// 19
+	public static ListNode removeNthFromEnd(ListNode head, int n) {
+		ListNode cur = head;
+		ListNode pre = null;
+		ListNode tmp;
+
+		while (cur != null) {
+			tmp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = tmp;
+		}
+		head = pre;
+
+		cur = head;
+		pre = null;
+
+		for (int i = 1; i < n && cur != null; i++) {
+			pre = cur;
+			cur = cur.next;
+		}
+
+		if (pre == null) {
+			head = head.next;
+		} else {
+			pre.next = cur.next;
+		}
+
+		cur = head;
+		pre = null;
+
+		while (cur != null) {
+			tmp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = tmp;
+		}
+		head = pre;
+
+		return head;
+	}
+
+	// 237
+	public void deleteNode(ListNode node) {
+		node.val = node.next.val;
+		node.next = node.next.next;
+	}
+
+	// 203
+	public static ListNode removeElements(ListNode head, int val) {
+		if (head == null) {
+			return head;
+		}
+
+		ListNode cur = head;
+		ListNode per = null;
+		while (cur != null) {
+			if (cur.val == val) {
+				if (per != null) {
+					per.next = cur.next;
+				}
+				if (head == cur) {
+					head = cur.next;
+				}
+			} else {
+				per = cur;
+			}
+			cur = cur.next;
+		}
+
+		return head;
+	}
+
+	// 234
+	public static boolean isPalindrome(ListNode head) {
+		ListNode cur = head;
+		List<Integer> li = new ArrayList<Integer>();
+		while (cur != null) {
+			li.add(cur.val);
+			cur = cur.next;
+		}
+
+		int left = 0;
+		int right = li.size() - 1;
+		while (right > left) {
+			if (!li.get(left).equals(li.get(right))) {
+				return false;
+			}
+			left++;
+			right--;
+		}
+
+		return true;
+	}
 
 	// 206
 	public static ListNode reverseList(ListNode head) {

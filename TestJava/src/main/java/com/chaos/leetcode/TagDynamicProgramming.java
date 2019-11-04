@@ -2,7 +2,7 @@ package com.chaos.leetcode;
 
 import java.util.Arrays;
 
-public class TagDynamicPlan {
+public class TagDynamicProgramming {
 
 	// 1046
 	public static int lastStoneWeight(int[] stones) {

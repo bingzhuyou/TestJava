@@ -9,6 +9,40 @@ import java.util.Set;
 import java.util.Stack;
 
 public class TagTree {
+
+	public static boolean isValidBST(TreeNode root) {
+		if (root == null) {
+			return true;
+		}
+		List<Integer> rl = new ArrayList<Integer>();
+
+		Stack<TreeNode> st = new Stack<TreeNode>();
+		TreeNode cur = root;
+		while (st.size() > 0 || cur != null) {
+			if (cur == null) {
+				cur = st.pop();
+				rl.add(cur.val);
+				cur = cur.right;
+			} else {
+				if (cur.left != null) {
+					st.push(cur);
+					cur = cur.left;
+				} else {
+					rl.add(cur.val);
+					cur = cur.right;
+				}
+			}
+		}
+
+		for (int i = 0; i < rl.size() - 1; i++) {
+			if (rl.get(i) >= rl.get(i + 1)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	// 1110
 	public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
 		List<TreeNode> ltn = new ArrayList<TreeNode>();
