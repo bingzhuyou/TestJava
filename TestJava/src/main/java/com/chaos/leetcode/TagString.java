@@ -3,12 +3,44 @@ package com.chaos.leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 public class TagString {
+	// 929
+	public static int numUniqueEmails(String[] emails) {
+		if (emails.length <= 0) {
+			return 0;
+		}
+
+		Set<String> emailSet = new HashSet<String>();
+
+		for (String m : emails) {
+			String[] fields = m.split("@");
+			if (fields.length != 2) {
+				continue;
+			}
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < fields[0].length(); i++) {
+				if (fields[0].charAt(i) == '+') {
+					break;
+				} else if (fields[0].charAt(i) == '.') {
+					continue;
+				}
+				sb.append(fields[0].charAt(i));
+			}
+			sb.append('@');
+			sb.append(fields[1]);
+			emailSet.add(sb.toString());
+		}
+
+		return emailSet.size();
+	}
+
 	public static int firstUniqChar(String s) {
 		Map<Character, Integer> mi = new LinkedHashMap<Character, Integer>();
 		Map<Character, Integer> cl = new HashMap<Character, Integer>();
@@ -207,8 +239,8 @@ public class TagString {
 		List<Integer> li = new ArrayList<Integer>();
 
 		for (int i = 0; i < chr.length; i++) {
-			if (chr[i] == 'a' || chr[i] == 'e' || chr[i] == 'o' || chr[i] == 'i' || chr[i] == 'u' ||
-					chr[i] == 'A' || chr[i] == 'E' || chr[i] == 'O' || chr[i] == 'I' || chr[i] == 'U') {
+			if (chr[i] == 'a' || chr[i] == 'e' || chr[i] == 'o' || chr[i] == 'i' || chr[i] == 'u' || chr[i] == 'A'
+					|| chr[i] == 'E' || chr[i] == 'O' || chr[i] == 'I' || chr[i] == 'U') {
 				li.add(i);
 			}
 		}
@@ -304,13 +336,13 @@ public class TagString {
 
 	// 6
 	/*
-	 * 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 L E E T C O D E I S H I R I N G 0,0
-	 * 1,0 2,0 1,1 0,2 1,2 2,2 1,3 0,4 1,4 2,4 1,5 0,6 1,6 2,6 1,7
+	 * 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 L E E T C O D E I S H I R I N G 0,0 1,0
+	 * 2,0 1,1 0,2 1,2 2,2 1,3 0,4 1,4 2,4 1,5 0,6 1,6 2,6 1,7
 	 * 
 	 * L C I R E T O E S I I G E D H N
 	 * 
-	 * 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 L E E T C O D E I S H I R I N G 0,0
-	 * 1,0 2,0 3,0 2,1 1,2 0,3 1,3 2,3 3,3 2,4 1,5 0,6 1,6 2,6 3,6
+	 * 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 L E E T C O D E I S H I R I N G 0,0 1,0
+	 * 2,0 3,0 2,1 1,2 0,3 1,3 2,3 3,3 2,4 1,5 0,6 1,6 2,6 3,6
 	 * 
 	 * L D R E O E I I E C I H N T S G
 	 */
@@ -587,9 +619,8 @@ public class TagString {
 					return false;
 				}
 				String tmpS = vs.pop();
-				if ((chrArr[i] == ')' && tmpS.equals("(")) ||
-						(chrArr[i] == ']' && tmpS.equals("[")) ||
-						(chrArr[i] == '}' && tmpS.equals("{"))) {
+				if ((chrArr[i] == ')' && tmpS.equals("(")) || (chrArr[i] == ']' && tmpS.equals("["))
+						|| (chrArr[i] == '}' && tmpS.equals("{"))) {
 					continue;
 				} else {
 					return false;
@@ -618,18 +649,16 @@ public class TagString {
 		int left = 0;
 		int right = len - 1;
 		while (right > left) {
-			if ((chrArr[right] >= 48 && chrArr[right] <= 57) ||
-					(chrArr[right] >= 65 && chrArr[right] <= 90) ||
-					(chrArr[right] >= 97 && chrArr[right] <= 122)) {
+			if ((chrArr[right] >= 48 && chrArr[right] <= 57) || (chrArr[right] >= 65 && chrArr[right] <= 90)
+					|| (chrArr[right] >= 97 && chrArr[right] <= 122)) {
 
 			} else {
 				right--;
 				continue;
 			}
 
-			if ((chrArr[left] >= 48 && chrArr[left] <= 57) ||
-					(chrArr[left] >= 65 && chrArr[left] <= 90) ||
-					(chrArr[left] >= 97 && chrArr[left] <= 122)) {
+			if ((chrArr[left] >= 48 && chrArr[left] <= 57) || (chrArr[left] >= 65 && chrArr[left] <= 90)
+					|| (chrArr[left] >= 97 && chrArr[left] <= 122)) {
 
 			} else {
 				left++;
